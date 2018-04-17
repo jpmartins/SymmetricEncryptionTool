@@ -81,7 +81,7 @@ public class DESede {
 		try (FileInputStream fis = new FileInputStream(fileKeys)) {
 			int n = fis.available();
 			byte[] k = new byte[n];
-			fis.read(k);
+			fis.read(k); 
 			KeySpec ks = new DESedeKeySpec(k);
 			SecretKeyFactory kf = SecretKeyFactory.getInstance("DESede");
 			return kf.generateSecret(ks);
