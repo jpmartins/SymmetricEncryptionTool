@@ -82,7 +82,6 @@ public class DESede {
 			int n = fis.available();
 			byte[] k = new byte[n];
 			fis.read(k);
-			fis.close();
 			KeySpec ks = new DESedeKeySpec(k);
 			SecretKeyFactory kf = SecretKeyFactory.getInstance("DESede");
 			return kf.generateSecret(ks);
