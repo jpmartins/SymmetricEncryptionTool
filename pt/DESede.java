@@ -1,5 +1,4 @@
-package pt.security;
-
+package pt;
 import java.io.*;
 import java.nio.file.Files;
 import java.security.*;
