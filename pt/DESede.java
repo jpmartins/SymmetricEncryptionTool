@@ -19,7 +19,6 @@ public class DESede {
 		System.out.println("generatingKey");
 		try (FileOutputStream fos = new FileOutputStream(fileKeys)) {
 			SecretKey key = KeyGenerator.getInstance("DESede").generateKey();
-			// Gravar a chave no ficheiro.
 			fos.write(key.getEncoded());
 		}
 	}
@@ -37,13 +36,10 @@ public class DESede {
 			InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException {
 		System.out.println("encrypt");
 		try (FileOutputStream fos = new FileOutputStream(fileOut)) {
-			// recuperar a chave do ficheiro
 			SecretKey key = getSecretKey(fileKeys);
-			// iniciar o "cifrador" e uma stream que permite cifrar os dados para o ficheiro
 			Cipher cip1 = Cipher.getInstance("DESede/ECB/NoPadding");
-			try (CipherOutputStream c_out = new CipherOutputStream(fos, cip1)) { // cifrado
+			try (CipherOutputStream c_out = new CipherOutputStream(fos, cip1)) { 
 				cip1.init(Cipher.ENCRYPT_MODE, key);
-				// efectuar a cifra - Java 7 rules.
 				Files.copy(java.nio.file.Paths.get(fileIn), c_out);
 			}
 		}
@@ -62,14 +58,10 @@ public class DESede {
 			throws InvalidKeyException, FileNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException,
 			IOException, NoSuchPaddingException {
 		System.out.println("decrypt");
-		// recuperar a chave do ficheiro
 		SecretKey key = getSecretKey(fileKeys);
-		// iniciar o "decifrador"
 		Cipher cip2 = Cipher.getInstance("DESede/ECB/NoPadding");
 		cip2.init(Cipher.DECRYPT_MODE, key);
-		try (CipherInputStream in = new CipherInputStream(new FileInputStream(fileIn), cip2)) { // le do ficheiro
-																								// cifrado e decifra
-			// decifrar ficheiro, e grava o texto em claro no ficheiro fileOut
+		try (CipherInputStream in = new CipherInputStream(new FileInputStream(fileIn), cip2)) {
 			if (new File(fileOut).delete())
 				System.out.println("Deleted previous version of " + fileOut);
 			Files.copy(in, java.nio.file.Paths.get(fileOut));
@@ -82,7 +74,6 @@ public class DESede {
 			int n = fis.available();
 			byte[] k = new byte[n];
 			fis.read(k);
-			fis.close();
 			KeySpec ks = new DESedeKeySpec(k);
 			SecretKeyFactory kf = SecretKeyFactory.getInstance("DESede");
 			return kf.generateSecret(ks);
