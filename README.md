@@ -1,5 +1,5 @@
 # SymmetricEncryptionTool
-Java exercise of encoding/decoding using DESede ( Triple DES algorithm Padding modes ) - 2005 @ ISEL
+Java exercise of encoding/decoding using DESede ( Triple DES algorithm Padding modes ) a long time ago @ ISEL
 
 At time was having a class that used JCA (Java Cryptography Architecture). This tool is implemented with DES - Digital Encryption Standard - DESede/ECB/NoPadding 168 bit key. The code can be generalised or adapted to other one of the supported algorithms.
  
