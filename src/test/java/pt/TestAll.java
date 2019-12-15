@@ -1,8 +1,8 @@
 package pt;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -10,20 +10,17 @@ import java.nio.file.Files;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import pt.DESede;
 
-class TestAll {
+public class TestAll {
 
 	@Test
-	void testKeyGen() {
+	public void testKeyGen() {
 		System.out.println("testKeyGen");
 		try {
 			if(new File("tempKeyJuintTest").delete()) System.out.println("previous tempKeyJuintTest deleted");
 			new DESede().generateKey("tempKeyJuintTest");
-			Assertions.assertTrue(new File("tempKeyJuintTest").exists());
+			assertTrue(new File("tempKeyJuintTest").exists());
 		} catch (NoSuchAlgorithmException | IOException e) {
 			e.printStackTrace();
 			fail("Error");
@@ -31,7 +28,7 @@ class TestAll {
 	}
 	
 	@Test
-	void testEncDec() {
+	public void testEncDec() {
 		System.out.println("testEncDec");
 		DESede impl = new DESede();
 		String fileKeys = "tempKeyJuintTest";
@@ -44,14 +41,14 @@ class TestAll {
 		}
 		try{
 			impl.cifrar(fileIn, fileKeys, fileEncOut);
-			Assertions.assertTrue(new File(fileEncOut).exists());
+			assertTrue(new File(fileEncOut).exists());
 		}catch (Exception e) {
 			e.printStackTrace();
 			fail("Error");
 		}
 		try{
 			impl.decifra(fileEncOut, fileKeys, fileDecOut);
-			Assertions.assertTrue(new File(fileDecOut).exists());
+			assertTrue(new File(fileDecOut).exists());
 		}catch (Exception e) {
 			e.printStackTrace();
 			fail("Error");
@@ -59,7 +56,7 @@ class TestAll {
 		try {
 			byte[] f1 = Files.readAllBytes(FileSystems.getDefault().getPath(fileKeys));
 			byte[] f2 = Files.readAllBytes(FileSystems.getDefault().getPath(fileDecOut));
-			Assertions.assertTrue(Arrays.equals(f1, f2));
+			assertTrue(Arrays.equals(f1, f2));
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail("Error");
